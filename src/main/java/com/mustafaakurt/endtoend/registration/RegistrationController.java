@@ -3,6 +3,8 @@ package com.mustafaakurt.endtoend.registration;
 import com.mustafaakurt.endtoend.event.RegistrationCompleteEvent;
 import com.mustafaakurt.endtoend.user.User;
 import com.mustafaakurt.endtoend.user.UserService;
+import com.mustafaakurt.endtoend.utility.UrlUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
@@ -26,10 +28,10 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") RegistrationRequest registrationRequest){
-        User user = userService.registerUser(registrationRequest);
+    public String registerUser(@ModelAttribute("user") RegistrationRequest registration, HttpServletRequest request){
+        User user = userService.registerUser(registration);
         // publish to verification email event here
-        publisher.publishEvent(new RegistrationCompleteEvent(user, ""));
-        return "redirect:/registration/registration-form?success";
+        publisher.publishEvent(new RegistrationCompleteEvent(user, UrlUtil.getApplicationUrl(request)));
+        return  "redirect:/registration/registration-form?success";
     }
 }

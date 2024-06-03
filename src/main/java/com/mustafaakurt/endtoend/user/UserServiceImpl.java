@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
                 request.getEmail(),
                 passwordEncoder.encode(request.getPassword()),
                 Arrays.asList(new Role("ROLE_USER")));
-        return null;
+        return userRepository.save(user);
     }
 
     @Override
