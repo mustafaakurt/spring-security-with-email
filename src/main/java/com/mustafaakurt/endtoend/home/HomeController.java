@@ -18,4 +18,9 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("/error")
+    public String error(){
+        return "error";
+    }
+
 }
