@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,6 +37,7 @@ public class RegistrationController {
         publisher.publishEvent(new RegistrationCompleteEvent(user, UrlUtil.getApplicationUrl(request)));
         return "redirect:/registration/registration-form?success";
     }
+
 
     @GetMapping("/verifyEmail")
     public String verifyEmail(@RequestParam("token") String token) {
